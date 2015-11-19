@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 int car[4];
 int lock[4];
@@ -26,8 +27,6 @@ void* ThreadRunnerN(void*){
             pthread_mutex_unlock(&mutex);
             sleep(1);
         }
-        
-        
         
         while(1){
             // second lock
@@ -365,10 +364,13 @@ void* ThreadRunnerW(void*){
 
 int main(int argc, const char * argv[]) {
     
-    car[0]=1;
-    car[1]=1;
-    car[2]=0;
-    car[3]=0;
+    if(argc<5)
+        return 0;
+    
+    car[0]=atoi(argv[1]);
+    car[1]=atoi(argv[2]);
+    car[2]=atoi(argv[3]);
+    car[3]=atoi(argv[4]);
     
     int i;
     for(i=0;i<4;i++){
