@@ -45,7 +45,8 @@ void* ThreadRunnerN(void*){
                 
                 // 死锁啦
                 if(isDeadlock[0]&&isDeadlock[1]&&isDeadlock[2]&&isDeadlock[3]){
-                    pthread_mutex_unlock(&mutex);
+                    printf("A DEADLOCK HAPPENS at %d\n",(int)timer);
+                    lock[0]=0;
                     break;
                 }
                 
@@ -54,9 +55,8 @@ void* ThreadRunnerN(void*){
         }
         // 死锁后释放资源
         if(isDeadlock[0]&&isDeadlock[1]&&isDeadlock[2]&&isDeadlock[3]){
-            printf("A DEADLOCK HAPPENS at %d\n",(int)timer);
-            lock[0]=0;
             isDeadlock[0]=0;
+            pthread_mutex_unlock(&mutex);
             sleep(1);
             continue;
         }
@@ -132,7 +132,8 @@ void* ThreadRunnerE(void*){
                 
                 // 死锁啦
                 if(isDeadlock[0]&&isDeadlock[1]&&isDeadlock[2]&&isDeadlock[3]){
-                    pthread_mutex_unlock(&mutex);
+                    printf("A DEADLOCK HAPPENS at %d\n",(int)timer);
+                    lock[1]=0;
                     break;
                 }
                 
@@ -141,9 +142,8 @@ void* ThreadRunnerE(void*){
         }
         // 死锁后释放资源
         if(isDeadlock[0]&&isDeadlock[1]&&isDeadlock[2]&&isDeadlock[3]){
-            printf("A DEADLOCK HAPPENS at %d\n",(int)timer);
-            lock[1]=0;
             isDeadlock[1]=0;
+            pthread_mutex_unlock(&mutex);
             sleep(1);
             continue;
         }
@@ -220,7 +220,8 @@ void* ThreadRunnerS(void*){
                 
                 // 死锁啦
                 if(isDeadlock[0]&&isDeadlock[1]&&isDeadlock[2]&&isDeadlock[3]){
-                    pthread_mutex_unlock(&mutex);
+                    printf("A DEADLOCK HAPPENS at %d\n",(int)timer);
+                    lock[3]=0;
                     break;
                 }
                 
@@ -229,9 +230,8 @@ void* ThreadRunnerS(void*){
         }
         // 死锁后释放资源
         if(isDeadlock[0]&&isDeadlock[1]&&isDeadlock[2]&&isDeadlock[3]){
-            printf("A DEADLOCK HAPPENS at %d\n",(int)timer);
-            lock[3]=0;
             isDeadlock[2]=0;
+            pthread_mutex_unlock(&mutex);
             sleep(1);
             continue;
         }
@@ -308,7 +308,8 @@ void* ThreadRunnerW(void*){
                 
                 // 死锁啦
                 if(isDeadlock[0]&&isDeadlock[1]&&isDeadlock[2]&&isDeadlock[3]){
-                    pthread_mutex_unlock(&mutex);
+                    printf("A DEADLOCK HAPPENS at %d\n",(int)timer);
+                    lock[2]=0;
                     break;
                 }
                 
@@ -317,9 +318,8 @@ void* ThreadRunnerW(void*){
         }
         // 死锁后释放资源
         if(isDeadlock[0]&&isDeadlock[1]&&isDeadlock[2]&&isDeadlock[3]){
-            printf("A DEADLOCK HAPPENS at %d\n",(int)timer);
-            lock[2]=0;
             isDeadlock[3]=0;
+            pthread_mutex_unlock(&mutex);
             sleep(1);
             continue;
         }
